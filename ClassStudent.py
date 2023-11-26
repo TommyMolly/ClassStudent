@@ -1,3 +1,19 @@
+class Person:
+    def __init__(self, name, surname):
+        self.name = name
+        self.surname = surname
+        self.courses_attached = []
+
+class Mentor(Person):
+    def rate_hw(self, student, course, grade):
+        if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
+            if course in student.grades:
+                student.grades[course] += [grade]
+            else:
+                student.grades[course] = [grade]
+        else:
+            return 'Ошибка'
+
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -7,24 +23,11 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
-    def add_courses(self, course_name):
-        self.finished_courses.append(course_name)
+class Lecturer(Mentor):
+    pass  # атрибуты или методы для Lecturer
 
-
-class Mentor:
-    def __init__(self, name, surname):
-        self.name = name
-        self.surname = surname
-        self.courses_attached = []
-
-    def rate_hw(self, student, course, grade):
-        if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
-            if course in student.grades:
-                student.grades[course] += [grade]
-            else:
-                student.grades[course] = [grade]
-        else:
-            return 'Ошибка'
+class Reviewer(Mentor):
+    pass  # атрибуты или методы для Reviewer
 
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')
